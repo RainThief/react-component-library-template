@@ -20,3 +20,5 @@ rollup-plugin-postcss
 
 # modify package.json
 node --experimental-modules editConfig.mjs && rm editConfig.mjs
+
+rm readme.md
