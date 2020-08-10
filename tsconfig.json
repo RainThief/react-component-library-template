@@ -19,6 +19,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+    "allowJs": true,
+    "skipLibCheck": true
   },
   "include": [
     "src/**/*"
