@@ -22,9 +22,6 @@ COPY package.json package.json
 COPY yarn.lock yarn.lock
 RUN yarn global add license-checker
 RUN yarn install
-# temp until bug fixed in 3.4.1 with coverage testing
-ENV SKIP_PREFLIGHT_CHECK=true
-RUN yarn add react-scripts@3.4.0
 EOF
 _popd
 }

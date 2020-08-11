@@ -1,120 +1,66 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render, RenderResult } from '@testing-library/react';
-import { Alert } from "./alert";
+import { Alert } from './alert';
+
 
 describe('Alert', () => {
   let wrapper: RenderResult;
+  const description = 'Description';
+  const title = 'Title';
+  const onCloseSpy: (event: React.FormEvent<HTMLButtonElement>) => void = jest.fn();
 
   describe('when only the description is specified', () => {
     beforeEach(() => {
-      wrapper = render(<Alert>Description</Alert>);
+      wrapper = render(<Alert>{ description }</Alert>);
     });
 
-    it('should set the `role` attribute to `alert`', () => {
-      expect(wrapper.getByTestId('alert')).toHaveAttribute('role', 'alert');
+    it('should not render the close button', () => {
+      expect(wrapper.queryByText('×')).not.toBeInTheDocument();
+    });
+
+    it('should not render the title', () => {
+      expect(wrapper.queryByText(title)).not.toBeInTheDocument();
+    });
+
+    it('should render the description', () => {
+      expect(wrapper.getByText(description)).toBeInTheDocument();
+    });
+  });
+
+  describe('when the description and title is specified', () => {
+    beforeEach(() => {
+      wrapper = render(<Alert title={title} >{ description }</Alert>);
+    });
+
+    it('should not render the close button', () => {
+      expect(wrapper.queryByText('×')).not.toBeInTheDocument();
+    });
+
+    it('should render the title', () => {
+      expect(wrapper.getByText(title)).toBeInTheDocument();
+    });
+
+    it('should render the description', () => {
+      expect(wrapper.getByText(description)).toBeInTheDocument();
+    });
+  });
+
+
+  describe('when the onClose callback is specified', () => {
+    beforeEach(() => {
+      wrapper = render(<Alert onClose={onCloseSpy}>{ description }</Alert>);
     });
 
     it('should render the close button', () => {
-      expect(wrapper.getByTestId('close')).toBeInTheDocument();
-    });
-
-    it('should not render the content title', () => {
-      expect(wrapper.queryAllByTestId('content-title')).toHaveLength(0);
-    });
-
-    it('should render the state icon', () => {
-      expect(wrapper.getByTestId('state-icon')).toBeInTheDocument();
-    });
-
-    it('should render the default info icon', () => {
-      expect(wrapper.getByTestId('icon-info')).toBeInTheDocument();
-    });
-
-    it('should render the content description', () => {
-      expect(wrapper.getByTestId('content-description')).toHaveTextContent(
-        'Description'
-      );
+      expect(wrapper.getByText(/×/)).toBeInTheDocument();
     });
 
     describe('when the close button is clicked', () => {
-      beforeEach(() => {
-        wrapper.getByTestId('close').click();
-      });
-
       it('should hide the alert', () => {
-        expect(wrapper.queryAllByTestId('alert')).toHaveLength(0);
-      });
-    });
-  });
-
-  describe('when the title is specified', () => {
-    beforeEach(() => {
-      wrapper = render(<Alert title="Title">Description</Alert>);
-    });
-
-    it('should set the `aria-labelledby` attribute to the ID of the title', () => {
-      const titleId = wrapper.getByTestId('content-title').getAttribute('id');
-
-      expect(wrapper.getByTestId('alert')).toHaveAttribute(
-        'aria-labelledby',
-        titleId
-      );
-    });
-
-    it('should set the `aria-describedby` attribute to the ID of the content', () => {
-      const contentId = wrapper
-        .getByTestId('content-description')
-        .getAttribute('id');
-
-      expect(wrapper.getByTestId('alert')).toHaveAttribute(
-        'aria-describedby',
-        contentId
-      );
-    });
-
-    it('should render the state icon', () => {
-      expect(wrapper.getByTestId('state-icon')).toBeInTheDocument();
-    });
-
-    it('should set the `aria-hidden` attribute on the state icon', () => {
-      expect(wrapper.getByTestId('state-icon')).toHaveAttribute(
-        'aria-hidden',
-        'true'
-      );
-    });
-
-    it('should render the default info icon', () => {
-      expect(wrapper.getByTestId('icon-info')).toBeInTheDocument();
-    });
-
-    it('should render the content title', () => {
-      expect(wrapper.getByTestId('content-title')).toHaveTextContent('Title');
-    });
-
-    it('should render the content description', () => {
-      expect(wrapper.getByTestId('content-description')).toHaveTextContent(
-        'Description'
-      );
-    });
-  });
-
-  describe('when the onClose callback is specified', () => {
-    let onCloseSpy: (event: React.FormEvent<HTMLButtonElement>) => void;
-
-    beforeEach(() => {
-      onCloseSpy = jest.fn();
-
-      wrapper = render(<Alert onClose={onCloseSpy}>Description</Alert>);
-    });
-
-    describe('when the close button is clicked', () => {
-      beforeEach(() => {
-        wrapper.getByTestId('close').click();
-      });
-
-      it('should call the callback once', () => {
+        wrapper.getByText(/×/).click();
         expect(onCloseSpy).toBeCalledTimes(1);
+        expect(wrapper.queryAllByTestId('alert')).toHaveLength(0);
       });
     });
   });
