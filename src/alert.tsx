@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import './alert.scss';
 
 interface AlertProps {
   children: string

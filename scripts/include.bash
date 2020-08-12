@@ -15,13 +15,13 @@ build_tmp_image() {
 _pushd "${PROJECT_ROOT}"
 docker build -t "$@" . -f-<<EOF
 FROM node:12-alpine
-# ENV CI=true set in CI run cmd
 RUN apk add --no-cache bash
 WORKDIR /usr/app
 COPY package.json package.json
 COPY yarn.lock yarn.lock
 RUN yarn global add license-checker
 RUN yarn install
+ENV SKIP_PREFLIGHT_CHECK=true
 EOF
 _popd
 }
@@ -36,8 +36,7 @@ start_container() {
         CONT_USER=0
     fi
 
-    docker run --rm -dt --init -u=$(id -u):$(id -g) --name "$IMAGE_NAME" \
-    --entrypoint /bin/bash \
+    docker run --rm -dt -u=$(id -u):$(id -g) --name "$IMAGE_NAME" \
     -u "$CONT_USER" \
     -v "$PROJECT_ROOT/src:/usr/app/src" \
     -v "$PROJECT_ROOT/.eslintrc:/usr/app/.eslintrc" \
