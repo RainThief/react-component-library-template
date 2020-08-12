@@ -70,19 +70,11 @@ normalise_path() {
     echo "$1"
 }
 
-# implode() {
-#     local IFS="$1";
-#     shift;
-#     echo "$*";
-# }
-
-# implode_array() {
-#     SEP=$1
-#     shift
-#     ARRAY=$@
-#     bar=$(IFS=";" ; echo "$ARRAY")
-#     echo $(IFS="$SEP" ; echo "${ARRAY[*]}")
-# }
+implode() {
+    local IFS="$1";
+    shift;
+    echo "$*";
+}
 
 exitonfail() {
     if [ "$1" -ne "0" ]
