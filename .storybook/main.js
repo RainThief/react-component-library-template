@@ -6,8 +6,8 @@ module.exports = {
   addons: [
     "@storybook/addon-actions",
     "@storybook/addon-links",
-    "@storybook/preset-typescript",
-    "@storybook/addon-knobs"
+    "@storybook/addon-knobs",
+    "@storybook/preset-scss"
   ],
   webpackFinal: async (config) => {
     config.module.rules.push({
@@ -15,17 +15,6 @@ module.exports = {
       use: ["style-loader", "css-loader", "sass-loader"],
       include: path.resolve(__dirname)
     });
-
-    config.module.rules.push({
-      test: /\.(ts|tsx)$/,
-      exclude: /node_modules/,
-      loader: require.resolve("babel-loader"),
-      options: {
-        presets: [["react-app", { flow: false, typescript: true }]]
-      }
-    });
-    config.resolve.extensions.push(".ts", ".tsx");
-
     return config;
   }
 };
