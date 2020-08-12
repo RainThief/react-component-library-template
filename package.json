@@ -29,6 +29,7 @@
         "eslint-plugin-react-hooks": "^4.0.4",
         "eslint-plugin-security": "^1.4.0",
         "fork-ts-checker-webpack-plugin": "^5.0.14",
+        "identity-obj-proxy": "^3.0.0",
         "jest": "^26.3.0",
         "node-sass": "^4.14.1",
         "react-scripts": "^3.4.0",
@@ -43,6 +44,9 @@
         "ts-jest": "^26.1.4",
         "ts-loader": "^8.0.2",
         "typescript": "^3.9.7"
+    },
+    "resolutions": {
+      "**/**/serialize-javascript": "^3.1.0"
     },
     "scripts": {
         "test": "bash run_unit_tests.sh -c",

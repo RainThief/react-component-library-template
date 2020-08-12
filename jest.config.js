@@ -1,16 +1,17 @@
 module.exports = {
-  roots: ["<rootDir>/src"],
+  roots: ['<rootDir>/src'],
   transform: {
-    "^.+\\.tsx?$": "ts-jest",
+    '^.+\\.tsx?$': 'ts-jest',
   },
-  preset: "ts-jest",
-  testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
-  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+  preset: 'ts-jest',
+  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   collectCoverageFrom: [
-    "src/**/*.{js,jsx,ts,tsx}",
-    "!**/*.d.ts",
-    "!src/serviceWorker.ts",
-    "!src/index.tsx"
+    'src/**/*.{js,jsx,ts,tsx}',
+    '!**/*.d.ts',
+    '!**/*.stories.{ts,tsx,js,jsx}',
+    '!src/serviceWorker.ts',
+    '!src/index.tsx'
   ],
   coverageThreshold: {
     global: {
@@ -19,5 +20,8 @@ module.exports = {
       lines: 80,
       statements: -10
     }
+  },
+  moduleNameMapper: {
+    '^.+\\.(css|less|scss)$': 'identity-obj-proxy'
   }
 };
