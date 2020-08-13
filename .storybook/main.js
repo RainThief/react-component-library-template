@@ -7,7 +7,8 @@ module.exports = {
     "@storybook/addon-actions",
     "@storybook/addon-links",
     "@storybook/addon-knobs",
-    "@storybook/preset-scss"
+    "@storybook/preset-scss",
+    "@storybook/addon-a11y"
   ],
   webpackFinal: async (config) => {
     config.module.rules.push({
