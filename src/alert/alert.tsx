@@ -8,7 +8,7 @@ interface AlertProps {
 }
 
 
-export const Alert: React.FC<AlertProps> = ({
+const Alert: React.FC<AlertProps> = ({
   title,
   children,
   onClose,
@@ -34,3 +34,5 @@ export const Alert: React.FC<AlertProps> = ({
     </div>);
 
 };
+
+export default Alert;

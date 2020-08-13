@@ -1,2 +1,6 @@
 // Components
-export * from './alert/alert';
+import Alert from './alert/alert';
+
+export {
+  Alert,
+};

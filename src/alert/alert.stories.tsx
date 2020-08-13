@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, text } from '@storybook/addon-knobs';
-import { Alert } from './alert';
+import Alert from './alert';
 import { action } from '@storybook/addon-actions';
 
 

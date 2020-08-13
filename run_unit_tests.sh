@@ -25,7 +25,8 @@ done
 
 start_container
 
-run "Unit tests" /bin/bash -c export NODE_ENV=test && npx jest "$COVERAGE"
+docker exec "$IMAGE_NAME" /bin/bash -c export NODE_ENV=test && npx jest --watchAll=false "$COVERAGE"
+exitonfail $? "Unit tests"
 
 docker stop "$IMAGE_NAME" >> /dev/null 2>&1
 
