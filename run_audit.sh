@@ -32,6 +32,9 @@ run "License check" npx license-checker --onlyAllow \
 docker exec -t "$IMAGE_NAME" yarn audit
 EXIT=$?
 
+docker exec -t "$IMAGE_NAME" yarn outdated
+exitonfail $? "Checking all dependencies up to date"
+
 docker stop "$IMAGE_NAME" >> /dev/null 2>&1
 
 if [ $EXIT -gt 3 ]; then

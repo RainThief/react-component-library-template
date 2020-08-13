@@ -4,10 +4,10 @@
     "description": "React Component Library",
     "main": "build/cjs/index.js",
     "devDependencies": {
-        "@rollup/plugin-commonjs": "^14.0.0",
+        "@rollup/plugin-commonjs": "^15.0.0",
         "@rollup/plugin-image": "^2.0.5",
         "@rollup/plugin-json": "^4.1.0",
-        "@rollup/plugin-node-resolve": "^8.4.0",
+        "@rollup/plugin-node-resolve": "^9.0.0",
         "@storybook/addon-a11y": "^6.0.5",
         "@storybook/addon-actions": "^6.0.4",
         "@storybook/addon-docs": "^6.0.5",
@@ -50,7 +50,7 @@
         "typescript": "^3.9.7"
     },
     "resolutions": {
-        "**/**/serialize-javascript": "^3.1.0"
+        "**/**/serialize-javascript": "^4.0.0"
     },
     "scripts": {
         "test": "bash run_unit_tests.sh -c",
