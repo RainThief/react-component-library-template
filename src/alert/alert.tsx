@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import './alert.scss';
 
-interface AlertProps {
+export interface AlertProps {
   children: React.ReactChild
   onClose?: (event: React.FormEvent<HTMLButtonElement>) => void
   title?: string
 }
 
 
-const Alert: React.FC<AlertProps> = ({
+export const Alert: React.FC<AlertProps> = ({
   title,
   children,
   onClose,
@@ -34,5 +34,3 @@ const Alert: React.FC<AlertProps> = ({
     </div>);
 
 };
-
-export default Alert;
