@@ -5,9 +5,12 @@
     "main": "build/cjs/index.js",
     "devDependencies": {
         "@rollup/plugin-commonjs": "^14.0.0",
+        "@rollup/plugin-image": "^2.0.5",
+        "@rollup/plugin-json": "^4.1.0",
         "@rollup/plugin-node-resolve": "^8.4.0",
         "@storybook/addon-a11y": "^6.0.5",
         "@storybook/addon-actions": "^6.0.4",
+        "@storybook/addon-docs": "^6.0.5",
         "@storybook/addon-knobs": "^6.0.4",
         "@storybook/addon-links": "^6.0.4",
         "@storybook/addons": "^6.0.4",
@@ -56,5 +59,15 @@
         "build": "rollup -c"
     },
     "license": "GPL-3.0-or-later",
-    "module": "build/es/index.js"
+    "module": "build/es/index.js",
+    "files": [
+        "build"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/defencedigital/r2d2-react-lib-base.git"
+    },
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com/"
+    }
 }

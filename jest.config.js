@@ -4,8 +4,9 @@ module.exports = {
     '^.+\\.tsx?$': 'ts-jest',
   },
   preset: 'ts-jest',
-  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  testPathIgnorePatterns: ['node_modules/'],
+  testMatch: ['**/*.test.(ts|tsx)'],
   collectCoverageFrom: [
     'src/**/*.{js,jsx,ts,tsx}',
     '!**/*.d.ts',
@@ -21,6 +22,7 @@ module.exports = {
     }
   },
   moduleNameMapper: {
+    '\\.(jpg|ico|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': 'identity-obj-proxy',
     '^.+\\.(css|less|scss)$': 'identity-obj-proxy'
   }
 };
