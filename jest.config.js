@@ -10,8 +10,7 @@ module.exports = {
     'src/**/*.{js,jsx,ts,tsx}',
     '!**/*.d.ts',
     '!**/*.stories.{ts,tsx,js,jsx}',
-    '!src/serviceWorker.ts',
-    '!src/index.tsx'
+    '!src/index.ts'
   ],
   coverageThreshold: {
     global: {
