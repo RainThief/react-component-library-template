@@ -10,6 +10,11 @@ describe('Alert', () => {
   const title = 'Title';
   const onCloseSpy: (event: React.FormEvent<HTMLButtonElement>) => void = jest.fn();
 
+  it('renders correctly', () => {
+    wrapper = render(<Alert>{ description }</Alert>);
+    expect(wrapper.container).toMatchSnapshot();
+  });
+
   describe('when only the description is specified', () => {
     beforeEach(() => {
       wrapper = render(<Alert>{ description }</Alert>);
