@@ -1,0 +1,29 @@
+name: Infrastructure automation
+
+on:
+  push:
+    branches:
+      - "*"
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  CI: true
+
+jobs:
+
+  check:
+    name: Check and test deployment
+    runs-on: ubuntu-20.04
+    steps:
+
+      - name: Checkout repo
+        uses: actions/checkout@v1
+
+      - name: Code analysis
+        run: ./run_static_analysis.sh
+
+      - name: Dependency audit
+        run: ./run_audit.sh
+
+      - name: Unit tests
+        run: ./run_unit_tests.sh
