@@ -1,18 +1,19 @@
-name: Infrastructure automation
+name: React component library
+
 
 on:
   push:
     branches:
       - "*"
 
+
 env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   CI: true
 
-jobs:
 
+jobs:
   check:
-    name: Check and test deployment
+    name: Check and test
     runs-on: ubuntu-20.04
     steps:
 
@@ -27,3 +28,21 @@ jobs:
 
       - name: Unit tests
         run: ./run_unit_tests.sh
+
+
+
+  stories:
+    name: Generate stories
+    if: github.ref == 'refs/heads/master'
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Run storybook
+        run: ./run_storybook.sh -s
+
+      - name: Upload storybook
+        uses: actions/upload-artifact@v2
+        with:
+          name: storybook
+          path: storybook-static

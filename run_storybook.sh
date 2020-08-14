@@ -6,15 +6,15 @@ PROJECT_ROOT="$(cd "$(dirname "$0")" && pwd)"
 
 source "$PROJECT_ROOT/scripts/include.bash"
 
-COVERAGE=""
+STATIC="false"
 
 while [[ $# -gt 0 ]]
 do
 key="$1"
 
 case $key in
-    -c|--coverage)
-    COVERAGE="--coverage"
+    -s|--static)
+    STATIC="true"
     shift
     ;;
     *)
@@ -23,11 +23,16 @@ case $key in
 esac
 done
 
+if [ "$STATIC" == "false" ]; then
+    run_container_interactive npx start-storybook -p 6006
+    exit 0
+fi
+
+mkdir -p "$PROJECT_ROOT/storybook-static"
+
 start_container
 
-docker exec "$IMAGE_NAME" /bin/bash -c "NODE_ENV=test && npx jest --colors --watchAll=false "$COVERAGE" --updateSnapshot"
-exitonfail $? "Unit tests"
+docker exec "$IMAGE_NAME" npx build-storybook
+exitonfail $? "Storybook gen"
 
 docker stop "$IMAGE_NAME" >> /dev/null 2>&1
-
-echo_success "Unit tests passed"

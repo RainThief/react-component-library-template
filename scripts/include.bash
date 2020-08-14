@@ -21,30 +21,46 @@ COPY package.json package.json
 COPY yarn.lock yarn.lock
 RUN yarn global add license-checker
 RUN yarn install
+RUN chmod  777 -c /usr/app/node_modules
+RUN chmod  777 -c /usr/app
+RUN ls -la /usr/app
 ENV SKIP_PREFLIGHT_CHECK=true
 EOF
 _popd
 }
 
 start_container() {
-    IMAGE_NAME="$(get_image_name $PROJECT_ROOT)"
+    STATE=${1:-"detach"}
+    shift
+    CMD=${@-""}
 
     build_tmp_image "$IMAGE_NAME"
 
-    CONT_USER=$(id -u):$(id -g)
-    if [ "$CI" == "true" ]; then
-        CONT_USER=0
+    OPTS="-dt"
+    ENTRY="-entrypoint /bin/bash"
+
+    if [ "$STATE" == "interactive" ]; then
+        OPTS="-it --init"
+        ENTRY="--"
     fi
 
-    docker run --rm -dt -u=$(id -u):$(id -g) --name "$IMAGE_NAME" \
+    docker run --rm $OPTS -u=$(id -u):$(id -g) --name "$IMAGE_NAME" \
     -u "$CONT_USER" \
     -v "$PROJECT_ROOT/src:/usr/app/src" \
     -v "$PROJECT_ROOT/.eslintrc:/usr/app/.eslintrc" \
     -v "$PROJECT_ROOT/.eslintignore:/usr/app/.eslintignore" \
     -v "$PROJECT_ROOT/.stylelintrc:/usr/app/.stylelintrc" \
     -v "$PROJECT_ROOT/tsconfig.json:/usr/app/tsconfig.json" \
-    --entrypoint /bin/bash \
-    "$(get_image_name $PROJECT_ROOT)"
+    -v "$PROJECT_ROOT/rollup.config.js:/usr/app/rollup.config.js" \
+    -v "$PROJECT_ROOT/jest.config.js:/usr/app/jest.config.js" \
+    -v "$PROJECT_ROOT/.storybook:/usr/app/.storybook" \
+    -v "$PROJECT_ROOT/storybook-static:/usr/app/storybook-static" \
+    --network=host \
+    "$ENTRY" "$(get_image_name $PROJECT_ROOT)" $CMD
+}
+
+run_container_interactive() {
+    start_container interactive $@
 }
 
 get_image_name() {
@@ -112,3 +128,10 @@ echo_info(){
   cyan='\033[0;36;1m'
   echo_colour "$1" "${cyan}"
 }
+
+IMAGE_NAME="$(get_image_name $PROJECT_ROOT)"
+
+CONT_USER=$(id -u):$(id -g)
+if [ "$CI" == "true" ]; then
+    CONT_USER=0
+fi

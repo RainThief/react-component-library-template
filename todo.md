@@ -16,7 +16,7 @@ git push —-tags origin master
 $ npm publish
 
 
-storybook in container
+storybook in container use semver
 
 
 storybook static as docker container use spa server
