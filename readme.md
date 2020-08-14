@@ -1,6 +1,6 @@
 # React Component Library Boilerplate
 
-This will create a React Component Library complete with StoryBook and Jest for building components to publish to a NPN Package
+This will create a React Component Library complete with StoryBook and Jest for building components to publish to a NPM Package
 
 ## Usage
 
