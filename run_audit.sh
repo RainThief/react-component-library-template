@@ -20,20 +20,21 @@ ALLOWED_LICENSES=(
     "CC-BY-4.0"
     "Public Domain"
     "WTFPL"
+    "MPL-2.0"
     "Unlicense"
 )
 
 start_container
 
-
-run "License check" npx license-checker --onlyAllow \
+docker exec -t "$IMAGE_NAME" npx license-checker --onlyAllow \
 "$(implode ";" "${ALLOWED_LICENSES[@]}")"
+exitonfail $? "Checking all dependencies up to date"
 
 docker exec -t "$IMAGE_NAME" yarn audit
 EXIT=$?
 
 docker exec -t "$IMAGE_NAME" yarn outdated
-exitonfail $? "Checking all dependencies up to date"
+warnonfail $? "Checking all dependencies up to date"
 
 docker stop "$IMAGE_NAME" >> /dev/null 2>&1
 

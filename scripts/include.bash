@@ -78,6 +78,14 @@ exitonfail() {
     fi
 }
 
+warnonfail() {
+    if [ "$1" -ne "0" ] && [ "$CI" != "true" ]
+    then
+        echo_warning "$2 warning"
+        sleep 5
+    fi
+}
+
 echo_colour() {
     colour=$2
     no_colour='\033[0m'

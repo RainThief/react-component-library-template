@@ -54,6 +54,8 @@
     },
     "scripts": {
         "test": "bash run_unit_tests.sh -c",
+        "lint": "bash run_static_analysis.sh",
+        "audit": "bash run_audit.sh",
         "storybook": "start-storybook -p 6006",
         "build-storybook": "build-storybook",
         "build": "rollup -c"
