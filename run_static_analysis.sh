@@ -14,7 +14,7 @@ fi
 
 start_container
 
-docker exec "$IMAGE_NAME" npx eslint "$ESLINT_OPT" --color ./src -c .eslintrc --ext .ts,.tsx,.js,.jsx
+docker exec "$IMAGE_NAME" npx eslint "$ESLINT_OPT" --color ./src -c .eslintrc.js --ext .ts,.tsx,.js,.jsx
 exitonfail $? "Eslint"
 
 docker exec "$IMAGE_NAME" npx stylelint --color "**/*.{css,scss,sass}"

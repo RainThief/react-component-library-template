@@ -49,6 +49,7 @@ start_container() {
     -v "$PROJECT_ROOT/storybook-static:/usr/app/storybook-static" \
     -v "$PROJECT_ROOT/coverage:/usr/app/coverage" \
     --network=host \
+    --entrypoint /bin/bash \
     "$ENTRY" "$(get_image_name $PROJECT_ROOT)" $CMD
 }
 
