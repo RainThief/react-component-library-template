@@ -1,6 +1,6 @@
 {
     "name": "",
-    "version": "0.0.1",
+    "version": "0.0.0",
     "description": "React Component Library",
     "main": "build/cjs/index.js",
     "devDependencies": {
