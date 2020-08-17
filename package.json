@@ -60,7 +60,7 @@
         "build-storybook": "bash run_storybook.sh -s",
         "build": "rollup -c"
     },
-    "license": "GPL-3.0-or-later",
+    "license": "OGL-UK-3.0",
     "module": "build/es/index.js",
     "files": [
         "build"
@@ -70,6 +70,7 @@
         "url": "https://github.com/defencedigital/r2d2-react-lib-base.git"
     },
     "publishConfig": {
-        "registry": "https://npm.pkg.github.com/"
+        "registry": "https://npm.pkg.github.com/",
+        "access": "public"
     }
 }
