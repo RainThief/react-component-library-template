@@ -8,28 +8,13 @@ source "$PROJECT_ROOT/scripts/include.bash"
 
 __DIR__="$(normalise_path ${PROJECT_ROOT})"
 
-ALLOWED_LICENSES=(
-    "MIT"
-    "Apache-2.0"
-    "CC0-1.0"
-    "BSD"
-    "BSD-2-Clause"
-    "BSD-3-Clause"
-    "ISC"
-    "CC-BY-3.0"
-    "CC-BY-4.0"
-    "Public Domain"
-    "WTFPL"
-    "MPL-2.0"
-    "OGL-UK-3.0"
-    "Unlicense"
-)
-
 start_container
 
-docker exec -t "$IMAGE_NAME" npx license-checker --onlyAllow \
-"$(implode ";" "${ALLOWED_LICENSES[@]}")"
-exitonfail $? "Checking all dependencies up to date"
+ALLOWED_LICENSES=$(docker exec -i "$IMAGE_NAME" echo "$(cat ./node_modules/r2d2-lint-config/licenses.json)" | \
+docker exec -i "$IMAGE_NAME" jq -c '.[]')
+
+docker exec -t "$IMAGE_NAME" npx license-checker --onlyAllow "$(echo $ALLOWED_LICENSES | sed -E "s/\" /;/g" | sed -E "s/\"//g")"
+exitonfail $? "License check"
 
 docker exec -t "$IMAGE_NAME" yarn audit
 EXIT=$?

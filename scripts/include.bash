@@ -103,8 +103,8 @@ echo_colour() {
 }
 
 echo_warning(){
-    magenta='\033[0;33;1m'
-    echo_colour "$1" "${magenta}"
+    yellow='\033[0;33;1m'
+    echo_colour "$1" "${yellow}"
 }
 
 echo_success(){
@@ -113,8 +113,8 @@ echo_success(){
 }
 
 echo_danger(){
-  red='\033[0;31;1m'
-  echo_colour "$1" "${red}"
+    red='\033[0;31;1m'
+    echo_colour "$1" "${red}"
 }
 
 
