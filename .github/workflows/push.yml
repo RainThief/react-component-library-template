@@ -9,6 +9,7 @@ on:
 
 env:
   CI: true
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
 jobs:
@@ -16,9 +17,8 @@ jobs:
     name: Check and test
     runs-on: ubuntu-20.04
     steps:
-
       - name: Checkout repo
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
       - name: Code analysis
         run: ./run_static_analysis.sh
@@ -30,13 +30,14 @@ jobs:
         run: ./run_unit_tests.sh
 
 
-
   stories:
     name: Generate stories
     if: github.ref == 'refs/heads/master'
     needs: check
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
 
       - name: Run storybook
         run: ./run_storybook.sh -s
@@ -46,3 +47,28 @@ jobs:
         with:
           name: storybook
           path: storybook-static
+
+
+  publish:
+    name: Tag and publish
+    if: github.ref == 'refs/heads/master'
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Tag release
+        run: |
+          git config user.name $GITHUB_ACTOR
+          git config user.email gh-actions-${GITHUB_ACTOR}@github.com
+          yarn version --new-version patch
+          git push --tags origin
+
+      - name: Publish release
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" >> ~/.npmrc
+          npm publish
+
+
+
