@@ -15,15 +15,15 @@ build_tmp_image() {
 _pushd "${PROJECT_ROOT}"
 docker build -t "$@" . -f-<<EOF
 FROM node:12-alpine
-RUN apk add --no-cache bash
+RUN apk add --no-cache bash git jq
+RUN yarn global add license-checker
 WORKDIR /usr/app
 COPY package.json package.json
 COPY yarn.lock yarn.lock
-RUN yarn global add license-checker
 RUN yarn install
 RUN chmod  777 -c /usr/app/node_modules
 RUN chmod  777 -c /usr/app
-RUN ls -la /usr/app
+COPY . /usr/app/
 ENV SKIP_PREFLIGHT_CHECK=true
 EOF
 _popd
@@ -46,15 +46,8 @@ start_container() {
 
     docker run --rm $OPTS -u=$(id -u):$(id -g) --name "$IMAGE_NAME" \
     -u "$CONT_USER" \
-    -v "$PROJECT_ROOT/src:/usr/app/src" \
-    -v "$PROJECT_ROOT/.eslintrc:/usr/app/.eslintrc" \
-    -v "$PROJECT_ROOT/.eslintignore:/usr/app/.eslintignore" \
-    -v "$PROJECT_ROOT/.stylelintrc:/usr/app/.stylelintrc" \
-    -v "$PROJECT_ROOT/tsconfig.json:/usr/app/tsconfig.json" \
-    -v "$PROJECT_ROOT/rollup.config.js:/usr/app/rollup.config.js" \
-    -v "$PROJECT_ROOT/jest.config.js:/usr/app/jest.config.js" \
-    -v "$PROJECT_ROOT/.storybook:/usr/app/.storybook" \
     -v "$PROJECT_ROOT/storybook-static:/usr/app/storybook-static" \
+    -v "$PROJECT_ROOT/coverage:/usr/app/coverage" \
     --network=host \
     "$ENTRY" "$(get_image_name $PROJECT_ROOT)" $CMD
 }

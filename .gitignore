@@ -3,3 +3,4 @@ build
 coverage
 __snapshots__
 storybook-static
+yarn-error.log
