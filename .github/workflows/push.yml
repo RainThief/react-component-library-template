@@ -32,7 +32,7 @@ jobs:
 
   stories:
     name: Generate stories
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master' || github.event_name == 'pull_request'
     needs: check
     runs-on: ubuntu-latest
     steps:
