@@ -1,0 +1,71 @@
+name: React component library
+
+
+on:
+  push:
+    branches:
+      - "*"
+
+
+env:
+  CI: true
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+jobs:
+  check:
+    name: Check and test
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Code analysis
+        run: ./run_static_analysis.sh
+
+      - name: Dependency audit
+        run: ./run_audit.sh
+
+      - name: Unit tests
+        run: ./run_unit_tests.sh
+
+
+  stories:
+    name: Generate stories
+    if: github.ref == 'refs/heads/master' || github.event_name == 'pull_request'
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Run storybook
+        run: ./run_storybook.sh -s
+
+      - name: Upload storybook
+        uses: actions/upload-artifact@v2
+        with:
+          name: storybook
+          path: storybook-static
+
+
+  publish:
+    name: Tag and publish
+    if: github.ref == 'refs/heads/master'
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Tag release
+        run: |
+          git config user.name $GITHUB_ACTOR
+          git config user.email gh-actions-${GITHUB_ACTOR}@github.com
+          yarn version --new-version patch
+          git push --tags origin
+
+      - name: Publish release
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" >> ~/.npmrc
+          npm publish
