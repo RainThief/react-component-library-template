@@ -1,5 +1,5 @@
 {
-  "extends": ["r2d2-lint-config/stylelint.config"],
+  "extends": ["@defencedigital/r2d2-lint-config/stylelint.config"],
   ignoreFiles: [
     './coverage/**/*',
     './build/**/*',

@@ -1282,6 +1282,22 @@
   resolved "https://registry.yarnpkg.com/@csstools/normalize.css/-/normalize.css-10.1.0.tgz#f0950bba18819512d42f7197e56c518aa491cf18"
   integrity sha512-ij4wRiunFfaJxjB0BdrYHIH8FxBJpOwNPhhAcunlmPdXudL1WQV1qoP9un6JsEBAgQH+7UXyyjh0g7jTxXK6tg==
 
+"@defencedigital/r2d2-lint-config@https://github.com/defencedigital/r2d2-lint-config.git#init":
+  version "0.0.0"
+  resolved "https://github.com/defencedigital/r2d2-lint-config.git#64d79cf826d1ad426c0507bf17edd9d75708b2c4"
+  dependencies:
+    "@typescript-eslint/eslint-plugin" "^3.9.0"
+    "@typescript-eslint/parser" "^3.9.0"
+    eslint-config-react-app "^5.2.1"
+    eslint-plugin-import "^2.22.0"
+    eslint-plugin-jest "^23.20.0"
+    eslint-plugin-jsx-a11y "^6.3.1"
+    eslint-plugin-react "^7.20.6"
+    eslint-plugin-react-hooks "^4.1.0"
+    eslint-plugin-security "^1.4.0"
+    stylelint-config-sass-guidelines "^7.0.0"
+    stylelint-config-standard "^20.0.0"
+
 "@emotion/cache@^10.0.27", "@emotion/cache@^10.0.9":
   version "10.0.29"
   resolved "https://registry.yarnpkg.com/@emotion/cache/-/cache-10.0.29.tgz#87e7e64f412c060102d589fe7c6dc042e6f9d1e0"
