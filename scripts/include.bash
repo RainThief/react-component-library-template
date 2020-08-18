@@ -80,10 +80,6 @@ exitonfail() {
     if [ "$1" -ne "0" ]
     then
         echo_danger "$2 failed"
-        IMAGE_NAME="$(get_image_name $PROJECT_ROOT)"
-        if [ ! -z "${IMAGE_NAME}" ]; then
-            docker stop "$IMAGE_NAME" >> /dev/null 2>&1
-        fi
         exit 1
     fi
 }
