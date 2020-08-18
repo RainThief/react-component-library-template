@@ -10,6 +10,7 @@ on:
 env:
   CI: true
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 
 jobs:
@@ -27,7 +28,7 @@ jobs:
         run: ./run_audit.sh
 
       - name: Unit tests
-        run: ./run_unit_tests.sh
+        run: ./run_unit_tests.sh -c
 
 
   stories:
@@ -63,9 +64,11 @@ jobs:
           git config user.name $GITHUB_ACTOR
           git config user.email gh-actions-${GITHUB_ACTOR}@github.com
           yarn version --new-version patch
-          git push --tags origin
+          git add package.json
+          git push
+          git push --tags
 
       - name: Publish release
         run: |
-          echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" >> ~/.npmrc
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
           npm publish

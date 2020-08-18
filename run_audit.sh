@@ -21,6 +21,7 @@ ALLOWED_LICENSES=(
     "Public Domain"
     "WTFPL"
     "MPL-2.0"
+    "OGL-UK-3.0"
     "Unlicense"
 )
 
