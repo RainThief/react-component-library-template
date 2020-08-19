@@ -1,6 +1,6 @@
 {
   "name": "@defencedigital/r2d2-react-lib-boilerplate",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "React Component Library Boilerplate",
   "main": "build/cjs/index.js",
   "devDependencies": {
