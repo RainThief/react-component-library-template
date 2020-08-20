@@ -17,8 +17,7 @@ yarn audit
 EXIT=$?
 
 yarn outdated
-exit $?
-exitonfail $? "Checking all dependencies up to date"
+warnonfail $? "Not all dependencies up to date"
 
 if [ $EXIT -gt 3 ]; then
     echo_danger "Security audit failed"

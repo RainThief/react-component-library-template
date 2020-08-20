@@ -1,24 +1,9 @@
 #!/usr/bin/env bash
-set -e
+set -u
 
-##############################################################################
-#
-# A script to run static analysis and all tests - will exit if any check fails
-#
-##############################################################################
+# Assume this script is in the src directory and work from that location
+PROJECT_ROOT="$(cd "$(dirname "$0")" && pwd)"
 
-# Assume this script is in the root directory
-PROJECT_DIR="$(cd "$(dirname "$0")" && pwd)"
+source "$PROJECT_ROOT/scripts/include.bash"
 
-source "$PROJECT_DIR/scripts/include.bash"
-
-echo_info "\nRunning Static Analysis"
-./run_static_analysis.sh
-
-echo_info "\nRunning Unit Tests"
-./run_unit_tests.sh -c
-
-echo_info "\nRunning Audit"
-./run_audit.sh
-
-echo_success "All checks/tests successful"
+exec_in_container ./scripts/all.sh
