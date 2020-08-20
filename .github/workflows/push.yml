@@ -48,3 +48,22 @@ jobs:
         with:
           name: storybook
           path: storybook-static
+
+
+  tag release:
+    name: Tag and publish
+    if: github.ref == 'refs/heads/master'
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Tag release
+        run: |
+          git config user.name $GITHUB_ACTOR
+          git config user.email gh-actions-${GITHUB_ACTOR}@github.com
+          yarn version --new-version patch
+          git add package.json
+          git push
+          git push --tags
