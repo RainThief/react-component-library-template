@@ -5,7 +5,10 @@ PROJECT_ROOT="$(cd "$(dirname "$0")" && pwd)/../"
 
 source "$PROJECT_ROOT/scripts/include.bash"
 
-ALLOWED_LICENSES=$(echo "$(cat ./node_modules/r2d2-lint-config/licenses.json)" | jq -c '.[]')
+ALLOWED_LICENSES=$(echo "$(cat ./node_modules/@defencedigital/r2d2-lint-config/licenses.json)" | jq -c '.[]')
+if [ "$ALLOWED_LICENSES" == "" ]; then
+    exitonfail 1 "License list import"
+fi
 
 npx license-checker --onlyAllow "$(echo $ALLOWED_LICENSES | sed -E "s/\" /;/g" | sed -E "s/\"//g")"
 exitonfail $? "License check"
