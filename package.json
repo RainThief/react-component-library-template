@@ -4,6 +4,7 @@
   "description": "React Component Library Boilerplate",
   "main": "build/cjs/index.js",
   "devDependencies": {
+    "@defencedigital/r2d2-lint-config": "^0.0.2",
     "@rollup/plugin-commonjs": "^15.0.0",
     "@rollup/plugin-image": "^2.0.5",
     "@rollup/plugin-json": "^4.1.0",
@@ -58,7 +59,8 @@
     "audit": "bash run_audit.sh",
     "storybook": "bash run_storybook.sh",
     "build-storybook": "bash run_storybook.sh -s",
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "prepare": "rollup -c"
   },
   "license": "OGL-UK-3.0",
   "module": "build/es/index.js",

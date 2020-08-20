@@ -1,6 +1,6 @@
-$alert-bg:             #f2dede !default;
-$alert-text:           #a94442 !default;
-$alert-border:         darken(adjust-hue($alert-bg, -10), 5%) !default;
+$alert-bg: #f2dede !default;
+$alert-text: #a94442 !default;
+$alert-border: darken(adjust-hue($alert-bg, -10), 5%) !default;
 
 body {
   background: #fff;
@@ -8,12 +8,12 @@ body {
 }
 
 .alert {
-  padding: 0.5rem 2rem 0.5rem 0.5rem;
-  border: 1px solid $alert-border;
   background: $alert-bg;
-  position: relative;
-  line-height: 1.3;
+  border: 1px solid $alert-border;
   color: $alert-text;
+  line-height: 1.3;
+  padding: 0.5rem 2rem 0.5rem 0.5rem;
+  position: relative;
 
   * {
     margin: 0;
@@ -21,23 +21,23 @@ body {
   }
 
   strong {
-    font-weight: bold;
     display: block;
     font-size: 1.2rem;
+    font-weight: bold;
   }
 
   button {
+    background: none;
+    border: 0;
+    color: inherit;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1.5rem;
+    font-weight: bold;
+    height: 100%;
     position: absolute;
     right: 0;
     top: 0;
     width: 2rem;
-    background: none;
-    display: inline-block;
-    height: 100%;
-    border: 0;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 1.5rem;
-    color: inherit;
   }
 }

@@ -20,7 +20,8 @@ RUN yarn global add license-checker
 WORKDIR /usr/app
 COPY package.json package.json
 COPY yarn.lock yarn.lock
-RUN yarn install
+# allow `prepare` script to fail on yarn install
+RUN yarn install; exit 0
 RUN chmod  777 -c /usr/app/node_modules
 RUN chmod  777 -c /usr/app
 COPY . /usr/app/
@@ -44,10 +45,15 @@ start_container() {
         ENTRY="--"
     fi
 
+    mkdir -p "$PROJECT_ROOT/coverage"
+    mkdir -p "$PROJECT_ROOT/storybook-static"
+    mkdir -p "$PROJECT_ROOT/build"
+
     docker run --rm $OPTS -u=$(id -u):$(id -g) --name "$IMAGE_NAME" \
     -u "$CONT_USER" \
     -v "$PROJECT_ROOT/storybook-static:/usr/app/storybook-static" \
     -v "$PROJECT_ROOT/coverage:/usr/app/coverage" \
+    -v "$PROJECT_ROOT/build:/usr/app/build" \
     --network=host \
     "$ENTRY" "$(get_image_name $PROJECT_ROOT)" $CMD
 }
@@ -61,9 +67,9 @@ get_image_name() {
 }
 
 normalise_path() {
-    # convert cygwin path
+    # convert cygwin path for windows users
     if [ $(echo "$1" | grep cygdrive) ]; then
-        echo "$1" | sed -r -e 's/\/cygdrive\/([a-z])/\1:/g'
+        echo "$1" | sed -E -e 's/\/cygdrive\/([a-z])/\1:/g'
         return
     fi
     echo "$1"
@@ -79,10 +85,6 @@ exitonfail() {
     if [ "$1" -ne "0" ]
     then
         echo_danger "$2 failed"
-        IMAGE_NAME="$(get_image_name $PROJECT_ROOT)"
-        if [ ! -z "${IMAGE_NAME}" ]; then
-            docker stop "$IMAGE_NAME" >> /dev/null 2>&1
-        fi
         exit 1
     fi
 }
@@ -102,8 +104,8 @@ echo_colour() {
 }
 
 echo_warning(){
-    magenta='\033[0;33;1m'
-    echo_colour "$1" "${magenta}"
+    yellow='\033[0;33;1m'
+    echo_colour "$1" "${yellow}"
 }
 
 echo_success(){
@@ -112,8 +114,8 @@ echo_success(){
 }
 
 echo_danger(){
-  red='\033[0;31;1m'
-  echo_colour "$1" "${red}"
+    red='\033[0;31;1m'
+    echo_colour "$1" "${red}"
 }
 
 

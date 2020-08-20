@@ -50,7 +50,7 @@ jobs:
           path: storybook-static
 
 
-  publish:
+  tag_release:
     name: Tag and publish
     if: github.ref == 'refs/heads/master'
     needs: check
@@ -67,8 +67,3 @@ jobs:
           git add package.json
           git push
           git push --tags
-
-      - name: Publish release
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
-          npm publish
