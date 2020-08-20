@@ -4,9 +4,27 @@ This will create a React Component Library complete with StoryBook and Jest for 
 
 ## Usage
 
-Fork project and edit `name` in [package.json](./package.json)
+Fork project and edit `name` in [package.json](./package.json) and delete this usage block
 
-## Requirements
+## Installation
+
+This package can be installed via `yarn` or `npm`
+
+### npm
+
+```shell
+npm install @defencedigital/<package-name>
+```
+
+### yarn
+
+```shell
+yarn add @defencedigital/<package-name>
+```
+
+## Component Development
+
+### Requirements
 
 To develop components you will need installed
 
@@ -16,49 +34,47 @@ To develop components you will need installed
   * [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
   * [Cygwin](https://www.cygwin.com/)
 
-## Project structure
+### Project structure
 
-### `/.storybook`
+#### `/.storybook`
 
 Story book configuration files.
 
-### `/scripts`
+#### `/scripts`
 
 Scripts to perform various build, install, analysis, etc operations.
 
-### `/src`
+#### `/src`
 
 Component, tests and stories files.
 
 As an example, for an alert component the folder `src/alert` will contain
 
-**`alert.tsx`**
+*`alert.tsx`*
 
 The component file
 
-**`alert.stories.tsx`**
+*`alert.stories.tsx`*
 
 The storybook file to help develop the component and documentation
 
-**`alert.test.tsx`**
+*`alert.test.tsx`*
 
 The jest test file to declare the unit tests for the component
 
-**`alert.scss`**
+*`alert.scss`*
 
 The styling information for the component
 
+### Commands
 
-## Commands
-
-
-### `$ yarn run test`
+#### `$ yarn run test`
 
 Runs the Jest testing framework against all `*.test.(tsx|ts)` files in `src` folder.
 
-**Example output**
+Example output
 
-```
+```shell
 PASS  src/alert/alert.test.tsx
   Alert
     ✓ renders correctly (13 ms)
@@ -76,10 +92,10 @@ PASS  src/alert/alert.test.tsx
         ✓ should hide the alert (5 ms)
 
 -----------|---------|----------|---------|---------|-------------------
-File       | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+File       | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
 -----------|---------|----------|---------|---------|-------------------
-All files  |     100 |     87.5 |     100 |     100 |                   
- alert.tsx |     100 |     87.5 |     100 |     100 | 20                
+All files  |     100 |     87.5 |     100 |     100 |
+ alert.tsx |     100 |     87.5 |     100 |     100 | 20
 -----------|---------|----------|---------|---------|-------------------
 Test Suites: 1 passed, 1 total
 Tests:       9 passed, 9 total
@@ -90,20 +106,18 @@ Unit tests passed
 Done in 3.70s.
 ```
 
-
-### `$ yarn run lint`
+#### `$ yarn run lint`
 
 Runs static analysis checks against source files.  This will check coding standards for JavaScript, TypeScript, CSS and SASS as well as check for code security vulnerabilities.
 
-**Example output**
+Example output
 
-```
+```shell
 static analysis passed
 Done in 2.36s.
 ```
 
-
-### `$ yarn run audit`
+#### `$ yarn run audit`
 
 Checks third party dependencies for
 
@@ -111,29 +125,27 @@ Checks third party dependencies for
 * Security vulnerabilities
 * Updated versions
 
+Example output
 
-**Example output**
-
-```
+```shell
 yarn audit v1.22.4
 0 vulnerabilities found - Packages audited: 2873
 Done in 1.50s.
-yarn outdated v1.22.4                     
+yarn outdated v1.22.4
 Done in 2.80s.
 Audit passed
 ```
 
-
-### `$ yarn run storybook`
+#### `$ yarn run storybook`
 
 Starts storybook application to aid with component development
 
-**Example output**
+Example output**
 
-```
+```shell
 start-storybook -p 6006
 info @storybook/react v6.0.5
-info 
+info
 info => Loading presets
 info => Loading presets
 info => Loading config/preview file in "./.storybook".
@@ -151,16 +163,15 @@ webpack built b746a705ca2ce8979804 in 5781ms
 ╰───────────────────────────────────────────────────╯
 ```
 
-
-### `$ yarn run build-storybook`
+#### `$ yarn run build-storybook`
 
 Exports storybook data for all components with configured stories as static webpages
 
-**Example output**
+Example output
 
-```
+```shell
 info @storybook/react v6.0.5
-info 
+info
 info clean outputDir..
 info => Copying prebuild dll's..
 info => Building manager..
@@ -180,14 +191,13 @@ info => Output directory: /media/storage/projects/react-lib-installer/storybook-
 Done in 15.45s.
 ```
 
-
-### `$ yarn run build`
+#### `$ yarn run build`
 
 Builds all TypeScript source files into common js and modules
 
-**Example output**
+Example output
 
-```
+```shell
 rollup -c
 
 ./src/index.ts → build/cjs/index.js, build/es/index.js...

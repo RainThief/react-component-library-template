@@ -50,7 +50,7 @@ jobs:
           path: storybook-static
 
 
-  tag release:
+  tag_release:
     name: Tag and publish
     if: github.ref == 'refs/heads/master'
     needs: check
