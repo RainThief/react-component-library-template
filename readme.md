@@ -140,7 +140,7 @@ Audit passed
 
 Starts storybook application to aid with component development
 
-Example output**
+Example output
 
 ```shell
 start-storybook -p 6006

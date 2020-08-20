@@ -20,6 +20,7 @@ RUN yarn global add license-checker
 WORKDIR /usr/app
 COPY package.json package.json
 COPY yarn.lock yarn.lock
+# allow `prepare` script to fail on yarn install
 RUN yarn install; exit 0
 RUN chmod  777 -c /usr/app/node_modules
 RUN chmod  777 -c /usr/app
@@ -54,7 +55,6 @@ start_container() {
     -v "$PROJECT_ROOT/coverage:/usr/app/coverage" \
     -v "$PROJECT_ROOT/build:/usr/app/build" \
     --network=host \
-    --entrypoint /bin/bash \
     "$ENTRY" "$(get_image_name $PROJECT_ROOT)" $CMD
 }
 
