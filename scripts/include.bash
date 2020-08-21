@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-CI=${CI:-false}
+CI="${CI:-false}"
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 _pushd(){
@@ -11,59 +11,29 @@ _popd(){
     command popd "$@" > /dev/null
 }
 
-build_tmp_image() {
-_pushd "${PROJECT_ROOT}"
-docker build -t "$@" . -f-<<EOF
-FROM node:12-alpine
-RUN apk add --no-cache bash git jq
-RUN yarn global add license-checker
-WORKDIR /usr/app
-COPY package.json package.json
-COPY yarn.lock yarn.lock
-# allow `prepare` script to fail on yarn install
-RUN yarn install; exit 0
-RUN chmod  777 -c /usr/app/node_modules
-RUN chmod  777 -c /usr/app
-COPY . /usr/app/
-ENV SKIP_PREFLIGHT_CHECK=true
-EOF
-_popd
-}
+exec_in_container() {
+    _pushd "${PROJECT_ROOT}"
+    docker build -t "$IMAGE_NAME" .
+    _popd
 
-start_container() {
-    STATE=${1:-"detach"}
-    shift
-    CMD=${@-""}
+    CONT_USER=$(id -u):$(id -g)
+    OPTS="-it --init"
 
-    build_tmp_image "$IMAGE_NAME"
-
-    OPTS="-dt"
-    ENTRY="-entrypoint /bin/bash"
-
-    if [ "$STATE" == "interactive" ]; then
-        OPTS="-it --init"
-        ENTRY="--"
+    if [ "$CI" == "true" ]; then
+        CONT_USER=0
+        OPTS="-t"
     fi
 
     mkdir -p "$PROJECT_ROOT/coverage"
     mkdir -p "$PROJECT_ROOT/storybook-static"
     mkdir -p "$PROJECT_ROOT/build"
-
-    docker run --rm $OPTS -u=$(id -u):$(id -g) --name "$IMAGE_NAME" \
-    -u "$CONT_USER" \
-    -v "$PROJECT_ROOT/storybook-static:/usr/app/storybook-static" \
-    -v "$PROJECT_ROOT/coverage:/usr/app/coverage" \
-    -v "$PROJECT_ROOT/build:/usr/app/build" \
-    --network=host \
-    "$ENTRY" "$(get_image_name $PROJECT_ROOT)" $CMD
-}
-
-run_container_interactive() {
-    start_container interactive $@
-}
-
-get_image_name() {
-    echo "tmp-$(basename -- $1)-image"
+    docker run --rm $OPTS -u="$CONT_USER" --name "$IMAGE_NAME" \
+        -v "$PROJECT_ROOT/storybook-static:/usr/app/storybook-static" \
+        -v "$PROJECT_ROOT/coverage:/usr/app/coverage" \
+        -v "$PROJECT_ROOT/build:/usr/app/build" \
+        -e "CI=$CI" \
+        --network=host \
+        "$IMAGE_NAME" $@
 }
 
 normalise_path() {
@@ -73,12 +43,6 @@ normalise_path() {
         return
     fi
     echo "$1"
-}
-
-implode() {
-    local IFS="$1";
-    shift;
-    echo "$*";
 }
 
 exitonfail() {
@@ -118,15 +82,9 @@ echo_danger(){
     echo_colour "$1" "${red}"
 }
 
-
 echo_info(){
   cyan='\033[0;36;1m'
   echo_colour "$1" "${cyan}"
 }
 
-IMAGE_NAME="$(get_image_name $PROJECT_ROOT)"
-
-CONT_USER=$(id -u):$(id -g)
-if [ "$CI" == "true" ]; then
-    CONT_USER=0
-fi
+IMAGE_NAME="tmp-$(basename -- $PROJECT_ROOT)-image"

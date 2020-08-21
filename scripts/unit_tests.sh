@@ -24,7 +24,7 @@ done
 
 export NODE_ENV=test
 
-npx jest --watchAll=false "$COVERAGE" --updateSnapshot
+npx jest --colors --watchAll=false "$COVERAGE" --updateSnapshot
 exitonfail $? "Unit tests"
 
 echo_success "Unit tests passed"

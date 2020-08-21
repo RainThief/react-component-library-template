@@ -1,13 +1,9 @@
 #!/bin/bash
-set -uo pipefail
+set -u
 
 # Assume this script is in the src directory and work from that location
 PROJECT_ROOT="$(cd "$(dirname "$0")" && pwd)"
 
 source "$PROJECT_ROOT/scripts/include.bash"
 
-start_container
-
-docker exec -t "$IMAGE_NAME" ./scripts/unit_tests.sh "$@"
-
-docker stop "$IMAGE_NAME" >> /dev/null 2>&1
+exec_in_container ./scripts/unit_tests.sh "$@"
