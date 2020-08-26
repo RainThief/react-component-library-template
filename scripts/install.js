@@ -17,6 +17,7 @@ const rl = readline.createInterface({
 // is this already a git repo (git cloned)?
 const isGit = fs.existsSync('.git') ? true : false;
 
+
 try {
   let data = JSON.parse(fs.readFileSync('package.json', {
     encoding: 'utf8',
@@ -67,6 +68,7 @@ catch (error) {
   handleError(error);
 }
 
+
 /**
  * Write JSON to text file
  * @param {JSON} data file contents
@@ -84,6 +86,7 @@ function writeFile(data) {
   process.exit(0);
 }
 
+
 /**
  * List of questions to ask via shell input
  * @return {Promise<Object>} answers to questions
@@ -98,6 +101,7 @@ async function gatherInput() {
     ])) : ''
   };
 }
+
 
 /**
  * Ask a question from shell input
@@ -126,6 +130,7 @@ async function ask(question, defaultAnswer) {
   return answer;
 }
 
+
 /**
  * DRY exiting from error state
  * @param {Error} error
@@ -134,6 +139,7 @@ function handleError(error) {
   console.error(error.message);
   exit(1);
 }
+
 
 /**
  * Execute commands in shell
