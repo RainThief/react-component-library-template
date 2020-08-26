@@ -1,6 +1,6 @@
 {
-  "name": "@defencedigital/r2d2-react-lib-boilerplate",
-  "version": "0.0.7",
+  "name": "",
+  "version": "0.0.0",
   "description": "React Component Library Boilerplate",
   "main": "build/cjs/index.js",
   "devDependencies": {
@@ -60,7 +60,8 @@
     "storybook": "bash run_storybook.sh",
     "build-storybook": "bash run_storybook.sh -s",
     "build": "rollup -c",
-    "prepare": "rollup -c"
+    "prepare": "rollup -c",
+    "install": "node scripts/install.js"
   },
   "license": "OGL-UK-3.0",
   "module": "build/es/index.js",

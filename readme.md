@@ -2,10 +2,6 @@
 
 This will create a React Component Library complete with StoryBook and Jest for building components to publish to a NPM Package
 
-## Usage
-
-Fork project and edit `name` in [package.json](./package.json) and delete this usage block
-
 ## Installation
 
 This package can be installed via `yarn` or `npm`
