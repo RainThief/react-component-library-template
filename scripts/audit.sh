@@ -1,16 +1,14 @@
 #!/usr/bin/env bash
 set -uo pipefail
 
-PROJECT_ROOT="$(cd "$(dirname "$0")" && pwd)/../"
+source "./scripts/include.sh"
 
-source "$PROJECT_ROOT/scripts/include.bash"
-
-ALLOWED_LICENSES=$(echo "$(cat ./node_modules/@defencedigital/r2d2-lint-config/licenses.json)" | jq -c '.[]')
+ALLOWED_LICENSES="$(< ./node_modules/@defencedigital/react-lint-config/licenses.json jq -c -r '.[]' | tr '\n' ';')"
 if [ "$ALLOWED_LICENSES" == "" ]; then
     exitonfail 1 "License list import"
 fi
 
-npx license-checker --onlyAllow "$(echo $ALLOWED_LICENSES | sed -E "s/\" /;/g" | sed -E "s/\"//g")"
+npx license-checker --onlyAllow "$ALLOWED_LICENSES"
 exitonfail $? "License check"
 
 yarn audit
@@ -25,7 +23,7 @@ if [ $EXIT -gt 3 ]; then
 fi
 if [ $EXIT -gt 0 ]; then
     echo_warning "Security audit passed with warnings"
-    exit 1
+    exit 0
 fi
 
 echo_success "Audit passed"

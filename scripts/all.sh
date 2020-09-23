@@ -3,7 +3,7 @@ set -eu
 
 PROJECT_ROOT="$(cd "$(dirname "$0")" && pwd)/../"
 
-source "$PROJECT_ROOT/scripts/include.bash"
+source "$PROJECT_ROOT/scripts/include.sh"
 
 _pushd "${PROJECT_ROOT}"
 

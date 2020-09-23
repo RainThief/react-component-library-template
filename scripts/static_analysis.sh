@@ -3,7 +3,7 @@ set -uo pipefail
 
 PROJECT_ROOT="$(cd "$(dirname "$0")" && pwd)/../"
 
-source "$PROJECT_ROOT/scripts/include.bash"
+source "$PROJECT_ROOT/scripts/include.sh"
 
 ESLINT_OPT="--fix"
 
@@ -16,5 +16,14 @@ exitonfail $? "Eslint"
 
 npx stylelint --color "**/*.{css,scss,sass}"
 exitonfail $? "Stylelint"
+
+shellcheck ./*.sh
+exitonfail $? "shellcheck"
+
+shellcheck ./scripts/*.sh
+exitonfail $? "shellcheck"
+
+hadolint Dockerfile
+exitonfail $? "hadolint"
 
 echo_success "Static analysis passed"

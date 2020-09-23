@@ -4,7 +4,7 @@
   "description": "React Component Library Boilerplate",
   "main": "build/cjs/index.js",
   "devDependencies": {
-    "@defencedigital/r2d2-lint-config": "^0.0.2",
+    "@defencedigital/react-lint-config": "^0.0.2",
     "@rollup/plugin-commonjs": "^15.0.0",
     "@rollup/plugin-image": "^2.0.5",
     "@rollup/plugin-json": "^4.1.0",
@@ -36,6 +36,7 @@
     "fork-ts-checker-webpack-plugin": "^5.0.14",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^26.3.0",
+    "license-checker-rseidelsohn": "^1.1.2",
     "node-sass": "^4.14.1",
     "react-scripts": "^3.4.0",
     "react-test-renderer": "^16.13.1",

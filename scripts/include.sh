@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
 
+
+IMAGE_NAME=${CI_IMAGE:-"defencedigital_react_lib_ci_support_image"}
+PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/../"
 CI="${CI:-false}"
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 _pushd(){
     command pushd "$@" > /dev/null
 }
 
 _popd(){
-    command popd "$@" > /dev/null
+    command popd > /dev/null
 }
 
 exec_in_container() {
@@ -33,12 +35,12 @@ exec_in_container() {
         -v "$PROJECT_ROOT/build:/usr/app/build" \
         -e "CI=$CI" \
         --network=host \
-        "$IMAGE_NAME" $@
+        "$IMAGE_NAME" "$@"
 }
 
 normalise_path() {
     # convert cygwin path for windows users
-    if [ $(echo "$1" | grep cygdrive) ]; then
+    if echo "$1" | grep -q cygdrive; then
         echo "$1" | sed -E -e 's/\/cygdrive\/([a-z])/\1:/g'
         return
     fi
@@ -86,5 +88,3 @@ echo_info(){
   cyan='\033[0;36;1m'
   echo_colour "$1" "${cyan}"
 }
-
-IMAGE_NAME="tmp-$(basename -- $PROJECT_ROOT)-image"
