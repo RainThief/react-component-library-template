@@ -16,6 +16,9 @@ echo_info "\nRunning Unit Tests"
 echo_info "\nRunning Audit"
 ./scripts/audit.sh
 
+echo_info "\nGenerating Storybook"
+./scripts/storybook.sh -s
+
 echo_success "All checks/tests successful"
 
 _popd
