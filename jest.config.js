@@ -5,7 +5,7 @@ module.exports = {
   },
   preset: 'ts-jest',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-  testPathIgnorePatterns: ['node_modules/'],
+  testPathIgnorePatterns: ['node_modules/', '_node_modules/'],
   testMatch: ['**/*.test.(ts|tsx)'],
   collectCoverageFrom: [
     'src/**/*.{js,jsx,ts,tsx}',

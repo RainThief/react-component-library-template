@@ -11,19 +11,23 @@ if [ "$CI" == "true" ]; then
     ESLINT_OPT="--quiet"
 fi
 
+echo_info "linting javascript"
 npx eslint "$ESLINT_OPT" --color ./src -c .eslintrc.js --ext .ts,.tsx,.js,.jsx
 exitonfail $? "Eslint"
 
+echo_info "linting sass"
 npx stylelint --color "**/*.{css,scss,sass}"
 exitonfail $? "Stylelint"
 
+echo_info "linting bash"
 shellcheck ./*.sh
 exitonfail $? "shellcheck"
 
 shellcheck ./scripts/*.sh
 exitonfail $? "shellcheck"
 
-hadolint Dockerfile
+echo_info "linting dockerfile"
+hadolint ./scripts/Dockerfile
 exitonfail $? "hadolint"
 
 echo_success "Static analysis passed"
