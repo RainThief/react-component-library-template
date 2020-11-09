@@ -39,19 +39,21 @@ exec_in_container() {
         _popd
     fi
 
+    CONT_NAME=$(basename "$IMAGE_NAME" | sed -r 's/:(.*)//' )
+
     mv_node_modules
 
-    docker run --rm -d $OPTS -u="$CONT_USER" --name "$(basename "$IMAGE_NAME")" \
+    docker run --rm -d $OPTS -u="$CONT_USER" --name "$CONT_NAME" \
         -v "$PROJECT_ROOT:/usr/app" \
         -e "CI=$CI" \
         --network=host \
         "$IMAGE_NAME" /bin/bash
 
-    docker exec $EXEC_OPTS "$(basename "$IMAGE_NAME")" ln -s /usr/appcache/node_modules node_modules
+    docker exec $EXEC_OPTS "$CONT_NAME" ln -s /usr/appcache/node_modules node_modules
 
-    docker exec $EXEC_OPTS "$(basename "$IMAGE_NAME")" "$@"
+    docker exec $EXEC_OPTS "$CONT_NAME" "$@"
 
-    docker stop "$(basename "$IMAGE_NAME")"
+    docker stop "$CONT_NAME"
 
     mv_node_modules
 }
