@@ -2,22 +2,6 @@
 
 This will create a React Component Library complete with StoryBook and Jest for building components to publish to a NPM Package
 
-## Installation
-
-This package can be installed via `yarn` or `npm`
-
-### npm
-
-```shell
-npm install @defencedigital/<package-name>
-```
-
-### yarn
-
-```shell
-yarn add @defencedigital/<package-name>
-```
-
 ## Component Development
 
 ### Requirements

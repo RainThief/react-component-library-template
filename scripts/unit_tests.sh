@@ -5,7 +5,10 @@ PROJECT_ROOT="$(cd "$(dirname "$0")" && pwd)/../"
 
 source "$PROJECT_ROOT/scripts/include.sh"
 
-COVERAGE=""
+export NODE_ENV=test
+
+ARGS=()
+WATCH="false"
 
 while [[ $# -gt 0 ]]
 do
@@ -13,18 +16,28 @@ key="$1"
 
 case $key in
     -c|--coverage)
-    COVERAGE="--coverage"
+    ARGS+=("--coverage")
+    shift
+    ;;
+    -w|--watch)
+    ARGS+=("--watch")
+    WATCH="true"
     shift
     ;;
     *)
+    ARGS+=("$1")
     shift
     ;;
 esac
 done
 
-export NODE_ENV=test
+if [ "$WATCH" == "false" ]; then
+    ARGS+=("--watchAll=false")
+fi
 
-npx jest --colors --watchAll=false "$COVERAGE" --updateSnapshot
+set -- "${ARGS[@]}"
+
+npx jest --colors --updateSnapshot "$@"
 exitonfail $? "Unit tests"
 
 echo_success "Unit tests passed"
