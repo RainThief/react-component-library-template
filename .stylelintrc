@@ -1,5 +1,5 @@
 {
-  "extends": ["@defencedigital/react-lint-config/stylelint.config"],
+  "extends": ["@rainthief/react-lint-config/stylelint.config"],
   ignoreFiles: [
     './coverage/**/*',
     './build/**/*',

@@ -3,7 +3,7 @@ set -uo pipefail
 
 source "./scripts/include.sh"
 
-ALLOWED_LICENSES="$(< ./node_modules/@defencedigital/react-lint-config/licenses.json jq -c -r '.[]' | tr '\n' ';')"
+ALLOWED_LICENSES="$(< ./node_modules/@rainthief/react-lint-config/licenses.json jq -c -r '.[]' | tr '\n' ';')"
 if [ "$ALLOWED_LICENSES" == "" ]; then
     exitonfail 1 "License list import"
 fi

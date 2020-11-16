@@ -4,7 +4,7 @@
   "description": "React Component Library Boilerplate",
   "main": "build/cjs/index.js",
   "devDependencies": {
-    "@defencedigital/react-lint-config": "^0.0.3",
+    "@rainthief/react-lint-config": "^0.0.6",
     "@rollup/plugin-commonjs": "^16.0.0",
     "@rollup/plugin-image": "^2.0.5",
     "@rollup/plugin-json": "^4.1.0",
@@ -71,16 +71,16 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/defencedigital/r2d2-react-lib-base.git"
+    "url": "git+https://github.com/rainthief/react-component-library-template.git"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
   "bugs": {
-    "url": "https://github.com/defencedigital/r2d2-react-lib-base/issues"
+    "url": "https://github.com/rainthief/react-component-library-template/issues"
   },
-  "homepage": "https://github.com/defencedigital/r2d2-react-lib-base#readme",
+  "homepage": "https://github.com//rainthief/react-component-library-template#readme",
   "dependencies": {},
   "author": ""
 }

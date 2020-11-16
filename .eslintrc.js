@@ -1,2 +1,2 @@
-const config = require('@defencedigital/react-lint-config');
+const config = require('@rainthief/react-lint-config');
 module.exports = config;

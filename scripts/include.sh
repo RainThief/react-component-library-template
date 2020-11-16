@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 
-IMAGE_NAME=${CI_IMAGE:-"defencedigital_react_lib_ci_support_image"}
+IMAGE_NAME=${CI_IMAGE:-"react_lib_ci_support_image"}
 PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/../"
 CI="${CI:-false}"
 
