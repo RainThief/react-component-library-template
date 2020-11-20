@@ -52,10 +52,13 @@ exec_in_container() {
     docker exec $EXEC_OPTS "$CONT_NAME" ln -s /usr/appcache/node_modules node_modules
 
     docker exec $EXEC_OPTS "$CONT_NAME" "$@"
+    EXIT_CODE=$?
 
     docker stop "$CONT_NAME"
 
     mv_node_modules
+
+    return $EXIT_CODE
 }
 
 # node modules may contain incompaitble binaries accross platforms so ignore host copy
