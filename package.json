@@ -4,7 +4,7 @@
   "description": "React Component Library Boilerplate",
   "main": "build/cjs/index.js",
   "devDependencies": {
-    "@rainthief/react-lint-config": "^0.0.6",
+    "@rainthief/react-lint-config": "^0.0.11",
     "@rollup/plugin-commonjs": "^16.0.0",
     "@rollup/plugin-image": "^2.0.5",
     "@rollup/plugin-json": "^4.1.0",
@@ -52,7 +52,8 @@
   },
   "resolutions": {
     "**/**/react": "^17.0.1",
-    "@storybook/**/node-fetch": "^2.6.1"
+    "@storybook/**/node-fetch": "^2.6.1",
+    "**/**/ini": "^1.3.7"
   },
   "scripts": {
     "test": "bash run_unit_tests.sh -c",
