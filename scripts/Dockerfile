@@ -1,6 +1,6 @@
 FROM node:12-alpine as builder
 
-RUN apk add --no-cache curl=7.67.0-r2
+RUN apk add --no-cache curl=7.67.0-r3
 
 # install hadolint (Dockerfile linter)
 RUN curl -L "https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64"  -o "hadolint" \

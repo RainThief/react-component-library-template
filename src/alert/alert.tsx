@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import './alert.scss';
 
 export interface AlertProps {
-  children: React.ReactChild
-  onClose?: (event: React.FormEvent<HTMLButtonElement>) => void
-  title?: string
+  children: React.ReactChild;
+  onClose?: (event: React.FormEvent<HTMLButtonElement>) => void;
+  title?: string;
 }
 
 
